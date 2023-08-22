@@ -1,23 +1,43 @@
 from fastapi import FastAPI
-import requests
+from google.oauth2.credentials import Credentials
+from googleapiclient.discovery import build
+
 import os
 from dotenv import load_dotenv
 
 # Get environment variables
 load_dotenv()
-SECRET_KEY = os.getenv("SECRET_KEY")
+SPREADSHEET_ID = os.getenv("YOUR_SPREADSHEET_ID")
 
-# Create a FastAPI instance
+# Initialize the FastAPI app
 app = FastAPI()
 
 
 @app.post("/submit")
-def submit(data: dict):
-    google_script_url = "https://script.google.com/macros/s/SCRIPT_ID/exec"
-    headers = {"Authorization": f"Bearer {SECRET_KEY}"}
-    response = requests.post(google_script_url, json=data, headers=headers)
+def submit(name: str, email: str):
+    # Load the credentials from the `token.json` file created during the Sheets API setup
+    creds = Credentials.from_authorized_user_file(
+        "token.json", ["https://www.googleapis.com/auth/spreadsheets"]
+    )
 
-    if response.ok:
-        return response.json()
-    else:
-        return {"error": "An error occurred"}, 500
+    # Connect to the Sheets API
+    service = build("sheets", "v4", credentials=creds)
+    sheet = service.spreadsheets()
+
+    # Data to append
+    values = [[name, email]]
+    body = {"values": values}
+
+    # Append the data to the sheet
+    result = (
+        sheet.values()
+        .append(
+            spreadsheetId=SPREADSHEET_ID,
+            range="Sheet1!A1:B1",
+            valueInputOption="RAW",
+            body=body,
+        )
+        .execute()
+    )
+
+    return {"message": "Data added to the sheet"}
