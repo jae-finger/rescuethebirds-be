@@ -1,16 +1,17 @@
-# from fastapi import FastAPI
-# from google.oauth2.credentials import Credentials
-# from googleapiclient.discovery import build
+from fastapi import FastAPI
+from google.oauth2.credentials import Credentials
+from googleapiclient.discovery import build
 
-# import os
+import os
+
 # from dotenv import load_dotenv
 
 # # Get environment variables
 # load_dotenv()
-# SPREADSHEET_ID = os.getenv("YOUR_SPREADSHEET_ID")
+# SPREADSHEET_ID = os.getenv("TEST_SPREADSHEET_ID")
 
-# # Initialize the FastAPI app
-# app = FastAPI()
+# Initialize the FastAPI app
+app = FastAPI()
 
 
 # @app.post("/submit")
@@ -43,18 +44,6 @@
 #     return {"message": "Data added to the sheet"}
 
 
-from typing import Union
-
-from fastapi import FastAPI
-
-app = FastAPI()
-
-
 @app.get("/")
 def read_root():
-    return {"Hello": "World"}
-
-
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: Union[str, None] = None):
-    return {"item_id": item_id, "q": q}
+    return {"Hello": "Augie"}
