@@ -1,48 +1,39 @@
 from fastapi import FastAPI
-from google.oauth2.credentials import Credentials
-from googleapiclient.discovery import build
+import gspread
+from google.oauth2.service_account import Credentials
+from pydantic import BaseModel
 
-import os
+# Credentials from the Google Sheets API JSON file
+creds = Credentials.from_service_account_file("credentials.json")
+client = gspread.authorize(creds)
 
-# from dotenv import load_dotenv
+# Open the Google Sheet using its name or URL
+sheet = client.open("SheetName").sheet1
 
-# # Get environment variables
-# load_dotenv()
-# SPREADSHEET_ID = os.getenv("TEST_SPREADSHEET_ID")
-
-# Initialize the FastAPI app
 app = FastAPI()
 
+# Data model for the request
+class UserData(BaseModel):
+    name: str
+    email: str
 
-# @app.post("/submit")
-# def submit(name: str, email: str):
-#     # Load the credentials from the `token.json` file created during the Sheets API setup
-#     creds = Credentials.from_authorized_user_file(
-#         "token.json", ["https://www.googleapis.com/auth/spreadsheets"]
-#     )
+@app.post("/write_user_data")
+async def write_user_data(user_data: UserData):
+    """
+    Writes name and email to a Google Sheet
+    - name: User's name 📝
+    - email: User's email 📝
+    """
 
-#     # Connect to the Sheets API
-#     service = build("sheets", "v4", credentials=creds)
-#     sheet = service.spreadsheets()
+    # Find the index of the "Name" and "Email" columns
+    name_index = sheet.row_values(1).index("Name") + 1
+    email_index = sheet.row_values(1).index("Email") + 1
 
-#     # Data to append
-#     values = [[name, email]]
-#     body = {"values": values}
+    # Append the name and email to the respective columns
+    sheet.update_cell(sheet.row_count + 1, name_index, user_data.name)
+    sheet.update_cell(sheet.row_count + 1, email_index, user_data.email)
 
-#     # Append the data to the sheet
-#     result = (
-#         sheet.values()
-#         .append(
-#             spreadsheetId=SPREADSHEET_ID,
-#             range="Sheet1!A1:B1",
-#             valueInputOption="RAW",
-#             body=body,
-#         )
-#         .execute()
-#     )
-
-#     return {"message": "Data added to the sheet"}
-
+    return {"message": "Name and email written successfully!"}
 
 @app.get("/")
 def read_root():
