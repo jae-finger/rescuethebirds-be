@@ -1,20 +1,15 @@
 # 
-FROM python:3.11.4-slim-bullseye
+FROM python:3.8.10-slim
 
 # 
-WORKDIR /code
+WORKDIR /app
 
 # 
-COPY ./requirements.txt /code/requirements.txt
+COPY . /app
 
 # 
-RUN pip install --no-cache-dir --upgrade -r /code/requirements.txt
+RUN pip install -r requirements.txt
+
 
 # 
-COPY ./app /code/app
-
-# 
-CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "80"]
-
-
-
+CMD uvicorn app.main:app --host=0.0.0.0 --port=8000
