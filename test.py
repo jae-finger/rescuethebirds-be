@@ -1,13 +1,10 @@
 import requests
 
-# URL of the FastAPI endpoint
-url = "https://rescuethebirds-jfcaxndkka-uc.a.run.app/write_user_data"
+# URL of the devcontainer or other server
+url = ""
 
 # Data to send in the request
-payload = {
-    "name": "John Doe",
-    "email": "john.doe@example.com"
-}
+payload = {"name": "Augie", "email": "john.doe@example.com"}
 
 # Send the POST request
 response = requests.post(url, json=payload)
