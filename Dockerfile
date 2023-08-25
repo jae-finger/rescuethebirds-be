@@ -1,18 +1,26 @@
+# Use a smaller base image, such as Alpine Linux, to reduce the image size.
+FROM python:3.9-alpine
 
-# Use the official lightweight Python image.
-# https://hub.docker.com/_/python
-FROM python:3.11-slim
+# set working directory
+WORKDIR /usr/src/app
 
-# Allow statements and log messages to immediately appear in the logs
-ENV PYTHONUNBUFFERED True
+# set environment variables
+ENV PYTHONDONTWRITEBYTECODE 1
+ENV PYTHONUNBUFFERED 1
 
-# Copy local code to the container image.
-ENV APP_HOME /app
-WORKDIR $APP_HOME
-COPY . ./
+# install build dependencies
+RUN apk add --no-cache gcc musl-dev libffi-dev openssl-dev
 
-# Install production dependencies.
+# install python dependencies
+COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# 
-CMD ["uvicorn", "main:app", "--host=0.0.0.0", "--port=8000"]
+# add app
+COPY . .
+
+# Use a non-root user to run the application for security reasons.
+RUN adduser -D appuser
+USER appuser
+
+# start app
+CMD ["uvicorn", "app.main:app", "--host=0.0.0.0", "--port=8000"]
