@@ -1,7 +1,7 @@
 import requests
 
 # URL of the FastAPI endpoint
-url = "http://0.0.0.0:8000/write_user_data"
+url = "https://rescuethebirds-jfcaxndkka-uc.a.run.app/write_user_data"
 
 # Data to send in the request
 payload = {
