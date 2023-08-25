@@ -1,7 +1,7 @@
 import requests
 
 # URL of the devcontainer or other server
-url = ""
+url = "http://0.0.0.0:8000/write_user_data"
 
 # Data to send in the request
 payload = {"name": "Augie", "email": "john.doe@example.com"}

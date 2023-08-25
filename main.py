@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-
+import ast
 import gspread
 from pydantic import BaseModel
 import os
@@ -19,14 +19,12 @@ def read_root():
 
 # Load google sheet based information
 # get env variable called 'GOOGLE_CREDENTIAL_DICT'
-google_credentials = os.getenv("GOOGLE_CREDENTIAL_DICT")
+GOOGLE_CREDENTIAL_DICT = ast.literal_eval(os.getenv("GOOGLE_CREDENTIAL_DICT"))
+CONTACT_SPREADSHEET_ID = os.getenv("CONTACT_SPREADSHEET_ID")
 
 # Authenticate with Google
-gc = gspread.service_account_from_dict(google_credentials)
-client = gspread.authorize(google_credentials)
-
-# Open the Google Sheet using its name or URL
-sheet = client.open("SheetName").sheet1
+gc = gspread.service_account_from_dict(GOOGLE_CREDENTIAL_DICT)
+sh = gc.open_by_key(CONTACT_SPREADSHEET_ID)
 
 
 # Data model for the request
@@ -44,11 +42,11 @@ async def write_user_data(user_data: UserData):
     """
 
     # Find the index of the "Name" and "Email" columns
-    name_index = sheet.row_values(1).index("Name") + 1
-    email_index = sheet.row_values(1).index("Email") + 1
+    name_index = sh.row_values(1).index("Name") + 1
+    email_index = sh.row_values(1).index("Email") + 1
 
     # Append the name and email to the respective columns
-    sheet.update_cell(sheet.row_count + 1, name_index, user_data.name)
-    sheet.update_cell(sheet.row_count + 1, email_index, user_data.email)
+    sh.update_cell(sh.row_count + 1, name_index, user_data.name)
+    sh.update_cell(sh.row_count + 1, email_index, user_data.email)
 
     return {"message": "Name and email written successfully!"}
