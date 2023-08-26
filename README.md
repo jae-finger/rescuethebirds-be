@@ -6,7 +6,6 @@ Welcome to our FastAPI backend! This repository contains the code for our backen
 ## Features
 
 - **FastAPI Framework**: Our backend is built using FastAPI, which provides a powerful and intuitive way to create APIs in Python.
-- **Data Processing**: We utilize Python and SQL for efficient data processing, manipulation, and storage.
 - **Endpoint Documentation**: FastAPI automatically generates interactive API documentation. You can access it at `/docs` after running the server.
 - **Annotations and Comments**: The code is well-annotated with comments to aid in understanding and maintenance.
 
@@ -14,7 +13,7 @@ Welcome to our FastAPI backend! This repository contains the code for our backen
 
 Before you begin, make sure you have the following installed:
 
-- Python 3.7+
+- Python 3.9+
 - Pipenv (recommended for managing dependencies)
 
 ## Installation
