@@ -1,6 +1,6 @@
 # File: .github/workflows/run_pytest.yml
 
-name: Run pytest
+name: Run Checks
 
 on:
   push:
@@ -11,7 +11,7 @@ on:
       - main
 
 jobs:
-  test:
+  pytest:  # Make this the first job
     runs-on: ubuntu-latest
     env:
       GOOGLE_SPREADSHEET_ID: ${{ secrets.GOOGLE_SPREADSHEET_ID }}
@@ -19,14 +19,18 @@ jobs:
     steps:
       - name: Checkout code 📦
         uses: actions/checkout@v2
-
       - name: Set up Python 🐍
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
-
       - name: Install dependencies 📚
         run: pip install -r requirements.txt
-
       - name: Run pytest 🧪
         run: pytest
+  
+  another-job:  # This job depends on 'pytest' job
+    needs: pytest  # This ensures it only runs after 'pytest' is successful
+    runs-on: ubuntu-latest
+    steps:
+      - name: Another Step
+        run: echo "This will run only if pytest is successful"
