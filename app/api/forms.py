@@ -23,11 +23,11 @@ gc = gspread.service_account_from_dict(GOOGLE_CREDENTIAL_DICT)
 sh = gc.open_by_key(GOOGLE_SPREADSHEET_ID)
 
 # open voluteer worksheet
-volunteer_worksheet =  sh.worksheet("Volunteer Form")
+volunteer_worksheet = sh.worksheet("Volunteer Form")
 
 
 @router.post("/volunteer", response_model=VolunteerFormResponseSchema, status_code=201)
-async def translate_user_text(
+async def submit_volunteer_form(
     payload: VolunteerFormPayloadSchema,
 ) -> VolunteerFormPayloadSchema:
     """

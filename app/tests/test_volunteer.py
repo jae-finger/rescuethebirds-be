@@ -4,7 +4,7 @@ from app.main import app
 client = TestClient(app)
 
 
-def test_translate_user_text():
+def test_submit_volunteer_form():
     payload = {
         "name_first": "TEST",
         "name_middle": "TEST",
