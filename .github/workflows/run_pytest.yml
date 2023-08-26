@@ -13,6 +13,9 @@ on:
 jobs:
   test:
     runs-on: ubuntu-latest
+    env:
+      GOOGLE_SPREADSHEET_ID: ${{ secrets.GOOGLE_SPREADSHEET_ID }}
+      GOOGLE_CREDENTIAL_DICT: ${{ secrets.GOOGLE_CREDENTIAL_DICT }}
     steps:
       - name: Checkout code 📦
         uses: actions/checkout@v2
