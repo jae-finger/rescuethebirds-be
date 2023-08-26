@@ -1,7 +1,9 @@
 # File: .github/workflows/run_pytest.yml
 
+# Name of the GitHub Actions workflow
 name: Run Checks
 
+# Trigger conditions: on push or pull requests to the 'main' branch
 on:
   push:
     branches:
@@ -10,27 +12,37 @@ on:
     branches:
       - main
 
+# Define the jobs to run
 jobs:
-  pytest:  # Make this the first job
+  # First job: Running pytest
+  pytest:
+    # The type of runner that the job will run on
     runs-on: ubuntu-latest
+    
+    # Environment variables from GitHub Secrets
     env:
       GOOGLE_SPREADSHEET_ID: ${{ secrets.GOOGLE_SPREADSHEET_ID }}
       GOOGLE_CREDENTIAL_DICT: ${{ secrets.GOOGLE_CREDENTIAL_DICT }}
+    
+    # Steps to be run in this job
     steps:
-      - name: Checkout code 📦
+      # Step 1: Checkout the code into the runner
+      - name: Checkout code
         uses: actions/checkout@v2
-      - name: Set up Python 🐍
+      
+      # Step 2: Set up Python environment
+      - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
-      - name: Install dependencies 📚
+          
+      # Step 3: Install Python dependencies
+      - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Run pytest 🧪
+      
+      # Step 4: Run pytest to execute tests
+      - name: Run pytest
         run: pytest
-  
-  another-job:  # This job depends on 'pytest' job
-    needs: pytest  # This ensures it only runs after 'pytest' is successful
-    runs-on: ubuntu-latest
-    steps:
-      - name: Another Step
-        run: echo "This will run only if pytest is successful"
+
+  # Additional jobs can be added here, and can be set to depend on the 'pytest' job
+  # by using the 'needs' field.
