@@ -1,4 +1,7 @@
 # rescuethebirds backend
+
+<img src="https://img.shields.io/badge/under%20construction-FF8C00" /> <img src="https://img.shields.io/badge/beta-blue"/>
+
 ## Project Overview
 
 Welcome to our FastAPI backend! This repository contains the code for our backend server built using FastAPI, a modern, fast, web framework for building APIs with Python. This backend serves as the foundation for our application, allowing us to handle data processing and interactions.

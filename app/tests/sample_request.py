@@ -4,7 +4,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-BASE_URL_PREFIX = os.getenv("BASE_URL_PREFIX")
+BASE_URL_PREFIX = os.getenv("ALLOWED_ORIGIN")
 
 # URL of the devcontainer or other server
 url = f"{BASE_URL_PREFIX}/forms/volunteer"
