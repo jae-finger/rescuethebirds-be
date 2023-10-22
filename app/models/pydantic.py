@@ -15,3 +15,11 @@ class BoardingFormPayloadSchema(BaseModel):
 
 class BoardingFormResponseSchema(BaseModel):
     message: str
+
+
+class AdoptionFormPayloadSchema(BaseModel):
+    name_first: str
+
+
+class AdoptionFormResponseSchema(BaseModel):
+    message: str

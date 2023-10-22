@@ -31,7 +31,7 @@ Before you begin, make sure you have the following installed:
 2. Configure database settings, API keys, and other environment-specific variables.
 
 ## Testing
-`pytest -W ignore::DeprecationWarning`
+Run `pytest -W ignore::DeprecationWarning`
 
 ## Running the Server
 

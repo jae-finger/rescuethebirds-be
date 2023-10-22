@@ -8,6 +8,8 @@ from app.models.pydantic import (
     VolunteerFormResponseSchema,
     BoardingFormPayloadSchema,
     BoardingFormResponseSchema,
+    AdoptionFormPayloadSchema,
+    AdoptionFormResponseSchema,
 )
 import gspread
 from dotenv import load_dotenv
@@ -27,9 +29,10 @@ BASE_URL_PREFIX = os.getenv("BASE_URL_PREFIX")
 gc = gspread.service_account_from_dict(GOOGLE_CREDENTIAL_DICT)
 sh = gc.open_by_key(GOOGLE_SPREADSHEET_ID)
 
-# open voluteer worksheet
+# open form google sheets
 volunteer_worksheet = sh.worksheet("Volunteer Form")
 boarding_worksheet = sh.worksheet("Boarding Form")
+adoption_worksheet = sh.worksheet("Adoption Form")
 
 
 @router.post("/volunteer", response_model=VolunteerFormResponseSchema, status_code=201)
@@ -45,12 +48,7 @@ async def submit_volunteer_form(
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     # add all of these to a new row in volunteer_worksheet
-    volunteer_worksheet.append_row(
-        [
-            current_time,
-            name_first,
-        ]
-    )
+    volunteer_worksheet.append_row([current_time, name_first])
 
     # return response object saying data was written to google sheet
     response_object = {
@@ -73,14 +71,30 @@ async def submit_boarding_form(
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     # add all of these to a new row in the appropriate google sheet
-    volunteer_worksheet.append_row(
-        [
-            current_time,
-            name_first
-        ]
-    )
+    volunteer_worksheet.append_row([current_time, name_first])
 
     # return response object saying data was written to google sheet
     response_object = {"message": "Boarding form written to Google Sheet successfully!"}
+
+    return response_object
+
+
+@router.post("/adoption", response_model=AdoptionFormResponseSchema, status_code=201)
+async def submit_adoption_form(
+    payload: AdoptionFormPayloadSchema,
+) -> AdoptionFormPayloadSchema:
+    """
+    Take in adoption form POST request and append data to row in Google Sheet
+    """
+
+    # extract data from payload
+    name_first = payload.name_first
+    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+
+    # add all of these to a new row in the appropriate google sheet
+    adoption_worksheet.append_row([current_time, name_first])
+
+    # return response object saying data was written to google sheet
+    response_object = {"message": "Adoption form written to Google Sheet successfully!"}
 
     return response_object

@@ -16,7 +16,7 @@ log = logging.getLogger("uvicorn")
 async def custom_not_found_handler(request: Request, exc: HTTPException):
     return JSONResponse(
         status_code=404,
-        content={"message": "Womp womp -- not found."},
+        content={"message": "Bird not found."},
     )
 
 
