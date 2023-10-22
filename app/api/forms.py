@@ -3,7 +3,12 @@ from fastapi import APIRouter
 import ast
 import os
 import logging
-from app.models.pydantic import VolunteerFormPayloadSchema, VolunteerFormResponseSchema
+from app.models.pydantic import (
+    VolunteerFormPayloadSchema,
+    VolunteerFormResponseSchema,
+    BoardingFormPayloadSchema,
+    BoardingFormResponseSchema,
+)
 import gspread
 from dotenv import load_dotenv
 
@@ -24,6 +29,7 @@ sh = gc.open_by_key(GOOGLE_SPREADSHEET_ID)
 
 # open voluteer worksheet
 volunteer_worksheet = sh.worksheet("Volunteer Form")
+boarding_worksheet = sh.worksheet("Boarding Form")
 
 
 @router.post("/volunteer", response_model=VolunteerFormResponseSchema, status_code=201)
@@ -36,56 +42,37 @@ async def submit_volunteer_form(
 
     # extract data from payload
     name_first = payload.name_first
-    name_middle = payload.name_middle
-    name_last = payload.name_last
-    email = payload.email
-    primary_phone = payload.primary_phone
-    street_address = payload.street_address
-    city = payload.city
-    state_province_region = payload.state_province_region
-    postal_zip_code = payload.postal_zip_code
-    country = payload.country
-    emergency_contact = payload.emergency_contact
-    date_of_birth = payload.date_of_birth
-    drivers_license = payload.drivers_license
-    days_hours_preferred = payload.days_hours_preferred
-    special_skills = payload.special_skills
-    languages = payload.languages
-    other_experiences_skills = payload.other_experiences_skills
-    bird_care_interest = payload.bird_care_interest
-    reference_1 = payload.reference_1
-    reference_2 = payload.reference_2
-    reference_3 = payload.reference_3
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
-    # write object to google sheet
     # add all of these to a new row in volunteer_worksheet
     volunteer_worksheet.append_row(
         [
             current_time,
             name_first,
-            name_middle,
-            name_last,
-            email,
-            primary_phone,
-            street_address,
-            city,
-            state_province_region,
-            postal_zip_code,
-            country,
-            emergency_contact,
-            date_of_birth,
-            drivers_license,
-            days_hours_preferred,
-            special_skills,
-            languages,
-            other_experiences_skills,
-            bird_care_interest,
-            reference_1,
-            reference_2,
-            reference_3,
         ]
     )
+
+    # return response object saying data was written to google sheet
+    response_object = {
+        "message": "Volunteer form written to Google Sheet successfully!"
+    }
+
+    return response_object
+
+
+@router.post("/boarding", response_model=BoardingFormResponseSchema, status_code=201)
+async def submit_boarding_form(
+    payload: BoardingFormPayloadSchema,
+) -> BoardingFormPayloadSchema:
+    """
+    Take in boarding form POST request and append data to row in Google Sheet
+    """
+
+    # extract data from payload
+    name_first = payload.name_first
+
+    # add all of these to a new row in the appropriate google sheet
+    volunteer_worksheet.append_row([name_first])
 
     # return response object saying data was written to google sheet
     response_object = {"message": "Data written to Google Sheet successfully!"}
