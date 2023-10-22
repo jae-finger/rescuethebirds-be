@@ -70,11 +70,17 @@ async def submit_boarding_form(
 
     # extract data from payload
     name_first = payload.name_first
+    current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     # add all of these to a new row in the appropriate google sheet
-    volunteer_worksheet.append_row([name_first])
+    volunteer_worksheet.append_row(
+        [
+            current_time,
+            name_first
+        ]
+    )
 
     # return response object saying data was written to google sheet
-    response_object = {"message": "Data written to Google Sheet successfully!"}
+    response_object = {"message": "Boarding form written to Google Sheet successfully!"}
 
     return response_object

@@ -30,6 +30,9 @@ Before you begin, make sure you have the following installed:
 1. Rename `.env.example` to `.env` and update the configuration settings if needed.
 2. Configure database settings, API keys, and other environment-specific variables.
 
+## Testing
+`pytest -W ignore::DeprecationWarning`
+
 ## Running the Server
 
 Run the following command to start the FastAPI development server:
