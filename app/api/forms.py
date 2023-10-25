@@ -44,16 +44,58 @@ async def submit_volunteer_form(
     """
 
     # extract data from payload
-    name_first = payload.name_first
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    person_name = payload.person_name
+    person_email = payload.person_email
+    person_phone = payload.person_phone
+    person_address = payload.person_address
+    person_dob = payload.person_dob
+    dl_number = payload.dl_number
+    emergency_contact_name = payload.emergency_contact_name
+    emergency_contact_phone = payload.emergency_contact_phone
 
-    # add all of these to a new row in volunteer_worksheet
-    volunteer_worksheet.append_row([current_time, name_first])
+    interested_bird_care = payload.interested_bird_care
+    interested_fundraising = payload.interested_fundraising
+    interested_fostering = payload.interested_fostering
 
-    # return response object saying data was written to google sheet
-    response_object = {
-        "message": "Volunteer form written to Google Sheet successfully!"
-    }
+    # convert interetsed booleans to strings that are yes or no and human readable
+    for check_mark in [
+        interested_bird_care,
+        interested_fundraising,
+        interested_fostering,
+    ]:
+        if check_mark:
+            check_mark = "Yes"
+        else:
+            check_mark = "No"
+
+    try:
+        # add all of these to a new row in volunteer_worksheet
+        volunteer_worksheet.append_row(
+            [
+                current_time,
+                person_name,
+                person_email,
+                person_phone,
+                person_address,
+                person_dob,
+                dl_number,
+                emergency_contact_name,
+                emergency_contact_phone,
+                interested_bird_care,
+                interested_fundraising,
+                interested_fostering,
+            ]
+        )
+
+        # return response object saying data was written to google sheet
+        response_object = {
+            "message": "Volunteer form written to Google Sheet successfully!"
+        }
+
+    # except and then return the error
+    except Exception as e:
+        response_object = {"message": f"Error: {e}"}
 
     return response_object
 
@@ -71,10 +113,17 @@ async def submit_boarding_form(
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     # add all of these to a new row in the appropriate google sheet
-    volunteer_worksheet.append_row([current_time, name_first])
+    try:
+        volunteer_worksheet.append_row([current_time, name_first])
 
-    # return response object saying data was written to google sheet
-    response_object = {"message": "Boarding form written to Google Sheet successfully!"}
+        # return response object saying data was written to google sheet
+        response_object = {
+            "message": "Boarding form written to Google Sheet successfully!"
+        }
+
+    # except and then return the error
+    except Exception as e:
+        response_object = {"message": f"Error: {e}"}
 
     return response_object
 
@@ -92,9 +141,16 @@ async def submit_adoption_form(
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
     # add all of these to a new row in the appropriate google sheet
-    adoption_worksheet.append_row([current_time, name_first])
+    try:
+        adoption_worksheet.append_row([current_time, name_first])
 
-    # return response object saying data was written to google sheet
-    response_object = {"message": "Adoption form written to Google Sheet successfully!"}
+        # return response object saying data was written to google sheet
+        response_object = {
+            "message": "Adoption form written to Google Sheet successfully!"
+        }
+
+    # except and then return the error
+    except Exception as e:
+        response_object = {"message": f"Error: {e}"}
 
     return response_object
