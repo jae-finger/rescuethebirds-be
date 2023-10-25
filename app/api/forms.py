@@ -137,12 +137,80 @@ async def submit_adoption_form(
     """
 
     # extract data from payload
-    name_first = payload.name_first
     current_time = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    person_name = payload.person_name
+    person_email = payload.person_email
+    person_phone = payload.person_phone
+    person_address = payload.person_address
+
+    hear_about_us = payload.hear_about_us
+
+    num_household_people = payload.num_household_people
+    primary_caregiver_age = payload.primary_caregiver_age
+    ages_in_household = payload.ages_in_household
+    children_in_house = payload.children_in_house
+
+    have_other_birds = payload.have_other_birds
+    other_birds_species = payload.other_birds_species
+    other_birds_checkup_date = payload.other_birds_checkup_date
+    other_birds_diet = payload.other_birds_diet
+    previous_birds = payload.previous_birds
+    previous_birds_history = payload.previous_birds_history
+    other_bird_experience = payload.other_bird_experience
+    has_avian_vet = payload.has_avian_vet
+    avian_vet_info = payload.avian_vet_info
+
+    residence_type = payload.residence_type
+    renter_verification = payload.renter_verification
+    bird_hours_alone = payload.bird_hours_alone
+    smokers_in_house = payload.smokers_in_house
+    smoker_explanation = payload.smoker_explanation
+    other_pets_in_home = payload.other_pets_in_home
+    other_pets_explanation = payload.other_pets_explanation
+    what_organizations = payload.what_organizations
+    what_supp_info = payload.what_supp_info
+
+    lifestyle_changes = payload.lifestyle_changes
+    vacation_care = payload.vacation_care
+    death_plans = payload.death_plans
 
     # add all of these to a new row in the appropriate google sheet
     try:
-        adoption_worksheet.append_row([current_time, name_first])
+        adoption_worksheet.append_row(
+            [
+                current_time,
+                person_name,
+                person_email,
+                person_phone,
+                person_address,
+                hear_about_us,
+                num_household_people,
+                primary_caregiver_age,
+                ages_in_household,
+                children_in_house,
+                have_other_birds,
+                other_birds_species,
+                other_birds_checkup_date,
+                other_birds_diet,
+                previous_birds,
+                previous_birds_history,
+                other_bird_experience,
+                has_avian_vet,
+                avian_vet_info,
+                residence_type,
+                renter_verification,
+                bird_hours_alone,
+                smokers_in_house,
+                smoker_explanation,
+                other_pets_in_home,
+                other_pets_explanation,
+                what_organizations,
+                what_supp_info,
+                lifestyle_changes,
+                vacation_care,
+                death_plans,
+            ]
+        )
 
         # return response object saying data was written to google sheet
         response_object = {
