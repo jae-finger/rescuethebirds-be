@@ -59,15 +59,20 @@ async def submit_volunteer_form(
     interested_fostering = payload.interested_fostering
 
     # convert interetsed booleans to strings that are yes or no and human readable
-    for check_mark in [
-        interested_bird_care,
-        interested_fundraising,
-        interested_fostering,
-    ]:
-        if check_mark:
-            check_mark = "Yes"
-        else:
-            check_mark = "No"
+    if interested_bird_care:
+        interested_bird_care = "Yes"
+    else:
+        interested_bird_care = "No"
+
+    if interested_fundraising:
+        interested_fundraising = "Yes"
+    else:
+        interested_fundraising = "No"
+
+    if interested_fostering:
+        interested_fostering = "Yes"
+    else:
+        interested_fostering = "No"
 
     try:
         # add all of these to a new row in volunteer_worksheet
@@ -114,7 +119,7 @@ async def submit_boarding_form(
 
     # add all of these to a new row in the appropriate google sheet
     try:
-        volunteer_worksheet.append_row([current_time, name_first])
+        boarding_worksheet.append_row([current_time, name_first])
 
         # return response object saying data was written to google sheet
         response_object = {
@@ -173,6 +178,32 @@ async def submit_adoption_form(
     lifestyle_changes = payload.lifestyle_changes
     vacation_care = payload.vacation_care
     death_plans = payload.death_plans
+
+    # for each boolean, convert to yes or no and human readable
+    if have_other_birds:
+        have_other_birds = "Yes"
+    else:
+        have_other_birds = "No"
+
+    if has_avian_vet:
+        has_avian_vet = "Yes"
+    else:
+        has_avian_vet = "No"
+
+    if children_in_house:
+        children_in_house = "Yes"
+    else:
+        children_in_house = "No"
+
+    if smokers_in_house:
+        smokers_in_house = "Yes"
+    else:
+        smokers_in_house = "No"
+
+    if other_pets_in_home:
+        other_pets_in_home = "Yes"
+    else:
+        other_pets_in_home = "No"
 
     # add all of these to a new row in the appropriate google sheet
     try:
