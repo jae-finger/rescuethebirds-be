@@ -6,14 +6,13 @@ client = TestClient(app)
 
 def test_submit_boarding_form():
     payload = {
-        "person_name": "Test Person",
+        "person_name": "TEST PERSON",
         "person_email": "email@email.com",
         "person_phone": "123-456-7890",
         "person_address": "123 Test St",
         "person_city": "Test City",
         "person_state": "Test State",
         "person_zipcode": "12345",
-        "person_dob": "01/01/1990",
         "boarding_start_date": "01/01/2021",
         "boarding_end_date": "01/01/2021",
         "bird_list": [

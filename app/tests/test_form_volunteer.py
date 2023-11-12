@@ -6,7 +6,7 @@ client = TestClient(app)
 
 def test_submit_volunteer_form():
     payload = {
-        "person_name": "Test Person",
+        "person_name": "TEST PERSON",
         "person_email": "test@email.co",
         "person_phone": "555-555-5555",
         "person_address": "123 Test St.",

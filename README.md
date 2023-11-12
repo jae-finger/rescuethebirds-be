@@ -27,7 +27,7 @@ Before you begin, make sure you have the following installed:
 
 ## Configuration
 
-1. Rename `.env.example` to `.env` and update the configuration settings if needed.
+1. Create `.env`.
 2. Configure database settings, API keys, and other environment-specific variables.
 
 ## Testing
