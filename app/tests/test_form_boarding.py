@@ -13,7 +13,6 @@ def test_submit_boarding_form():
         "person_city": "Test City",
         "person_state": "Test State",
         "person_zipcode": "12345",
-        "person_dob": "01/01/1990",
         "boarding_start_date": "01/01/2021",
         "boarding_end_date": "01/01/2021",
         "bird_list": [
