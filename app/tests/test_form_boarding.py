@@ -6,7 +6,7 @@ client = TestClient(app)
 
 def test_submit_boarding_form():
     payload = {
-        "person_name": "Test Person",
+        "person_name": "TEST PERSON",
         "person_email": "email@email.com",
         "person_phone": "123-456-7890",
         "person_address": "123 Test St",

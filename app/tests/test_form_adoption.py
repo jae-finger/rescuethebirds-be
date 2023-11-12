@@ -6,7 +6,7 @@ client = TestClient(app)
 
 def test_submit_adoption_form():
     payload = {
-        "person_name": "Test Person",
+        "person_name": "TEST PERSON",
         "person_dob": "1990-01-01",
         "person_email": "test@test.email",
         "person_phone": "123-456-7890",
