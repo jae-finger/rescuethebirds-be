@@ -38,3 +38,53 @@ Run `pytest -W ignore::DeprecationWarning`
 Run the following command to start the FastAPI development server:
 1. `docker build -t rescuethebirds .`
 2. `docker run -d -p 8000:8000 rescuethebirds`
+
+## Basic Backend Flow
+The Rescue the Birds! backend is built around assisting our stakeholder, Rich, at the refuge. He wishes to have a website that dumps everything into a google sheet - like the one he has now. So, here's a simplified view of how a user interacts with the frontend, and how it ends up in front of the refuge.
+```mermaid
+
+graph LR;
+    style randomuser fill:#ffffff, stroke:#000000;
+    randomuser([Bird Lover])-->frontend[Frontend];
+    
+    style frontend fill:#ffffff, stroke:#000000;
+    frontend-.->|coming soon|8[[Donation Form]];
+    
+    style 1 fill:#ffffff, stroke:#000000;
+    frontend-->7[[Boarding Form]];
+
+    style 2 fill:#ffffff, stroke:#000000;
+    frontend-->6[[Volunteer Form]];
+
+    style 3 fill:#ffffff, stroke:#000000;
+    frontend-->5[[Adoption Form]];
+    
+    5-->1[[Adoption Requests]];
+
+    style 5 fill:#ffffff, stroke:#000000;
+    6-->2[[Volunteer Requests]];
+
+    style 6 fill:#ffffff, stroke:#000000;
+    7-->3[[Boarding Requests]];
+    style 7 fill:#ffffff, stroke:#000000;
+
+    8-.->|coming soon|88[[Stripe]];
+    88-.->|coming soon|4[[Donation Receipts]];
+    style 4 fill:#cccccc, stroke:#000000;
+    style 88 fill:#cccccc, stroke:#000000;
+    style 8 fill:#cccccc, stroke:#000000;
+
+    1-->googlesheet[(Google Sheet)];
+    style googlesheet fill:#ffffff, stroke:#000000;
+
+    2-->googlesheet;
+    3-->googlesheet;
+    
+    4-.-|coming soon|googlesheet;
+    
+    googlesheet---stakeholder(["`Rich (*stakeholder*)`"]);
+
+
+    style stakeholder fill:#ffffff, stroke:#000000;
+
+```
