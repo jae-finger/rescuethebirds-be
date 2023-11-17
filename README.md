@@ -45,7 +45,7 @@ The Rescue the Birds! backend is built around assisting our stakeholder, Rich, a
 
 graph LR;
     style randomuser fill:#ffffff, stroke:#000000;
-    randomuser([Bird Lover])-->frontend[Frontend];
+    randomuser([Bird Lover])-->frontend[React Frontend];
     
     style frontend fill:#ffffff, stroke:#000000;
     frontend-.->|coming soon|8[[Donation Form]];
@@ -59,29 +59,33 @@ graph LR;
     style 3 fill:#ffffff, stroke:#000000;
     frontend-->5[[Adoption Form]];
     
-    5-->1[[Adoption Requests]];
+    5-->1[[Adoption Info]];
 
     style 5 fill:#ffffff, stroke:#000000;
-    6-->2[[Volunteer Requests]];
+    6-->2[[Volunteer Info]];
 
     style 6 fill:#ffffff, stroke:#000000;
-    7-->3[[Boarding Requests]];
+    7-->3[[Boarding Info]];
     style 7 fill:#ffffff, stroke:#000000;
 
     8-.->|coming soon|88[[Stripe]];
-    88-.->|coming soon|4[[Donation Receipts]];
+    88-.->|coming soon|4[[Donation Info]];
     style 4 fill:#cccccc, stroke:#000000;
     style 88 fill:#cccccc, stroke:#000000;
     style 8 fill:#cccccc, stroke:#000000;
 
-    1-->googlesheet[(Google Sheet)];
+    1-->backend;
+    style backend fill:#ffffff, stroke:#000000;
+
+    2-->backend;
+    3-->backend;
+    
+    4-.-|coming soon|backend;
+
+    backend[FastAPI Backend]-->googlesheet[(Google Sheet)]
+    style backend fill:#ffffff, stroke:#000000;
     style googlesheet fill:#ffffff, stroke:#000000;
 
-    2-->googlesheet;
-    3-->googlesheet;
-    
-    4-.-|coming soon|googlesheet;
-    
     googlesheet---stakeholder(["`Rich (*stakeholder*)`"]);
 
 
