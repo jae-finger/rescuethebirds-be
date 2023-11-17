@@ -45,46 +45,55 @@ The Rescue the Birds! backend is built around assisting our stakeholder, Rich, a
 
 graph LR;
     style randomuser fill:#ffffff, stroke:#000000;
-    randomuser([Bird Lover])-->frontend[React Frontend];
+    randomuser([Bird Lover])-->fe[Website];
+    subgraph frontend [React Frontend]
+    style fe fill:#FFD580, stroke:#000000;
     
-    style frontend fill:#ffffff, stroke:#000000;
-    frontend-.->|coming soon|8[[Donation Form]];
+    style 1 fill:#CBC3E3, stroke:#000000;
+    fe-->7[[Boarding Form]];
+
+    style 2 fill:#CBC3E3, stroke:#000000;
+    fe-->6[[Volunteer Form]];
+
+    style 3 fill:#CBC3E3, stroke:#000000;
+    fe-->5[[Adoption Form]];
+    end
+    style fe fill:#FFD580, stroke:#000000;
+    fe-.->8[[Donation Form]];
+    subgraph comingsoon [Coming Soon]
+    8-.->4[[Donation Info]];
+
+    end
+    style comingsoon fill:#cccccc, stroke:#000000;
+    subgraph backend [Fast API Backend]
     
-    style 1 fill:#ffffff, stroke:#000000;
-    frontend-->7[[Boarding Form]];
-
-    style 2 fill:#ffffff, stroke:#000000;
-    frontend-->6[[Volunteer Form]];
-
-    style 3 fill:#ffffff, stroke:#000000;
-    frontend-->5[[Adoption Form]];
     
     5-->1[[Adoption Info]];
 
-    style 5 fill:#ffffff, stroke:#000000;
+    style 5 fill:#FFD580, stroke:#000000;
     6-->2[[Volunteer Info]];
 
-    style 6 fill:#ffffff, stroke:#000000;
+    style 6 fill:#FFD580, stroke:#000000;
     7-->3[[Boarding Info]];
-    style 7 fill:#ffffff, stroke:#000000;
+    4-.-be;
+    style 7 fill:#FFD580, stroke:#000000;
 
-    8-.->|coming soon|88[[Stripe]];
-    88-.->|coming soon|4[[Donation Info]];
     style 4 fill:#cccccc, stroke:#000000;
-    style 88 fill:#cccccc, stroke:#000000;
+
     style 8 fill:#cccccc, stroke:#000000;
-
-    1-->backend;
-    style backend fill:#ffffff, stroke:#000000;
-
-    2-->backend;
-    3-->backend;
     
-    4-.-|coming soon|backend;
+    1-->be;
+    style be fill:#CBC3E3, stroke:#000000;
+    
+    2-->be;
+    3-->be;
 
-    backend[FastAPI Backend]-->googlesheet[(Google Sheet)]
-    style backend fill:#ffffff, stroke:#000000;
-    style googlesheet fill:#ffffff, stroke:#000000;
+    be[Docker on GCP]-->googlesheet[(Google Sheet)]
+    end
+    style be fill:#CBC3E3, stroke:#000000;
+    style googlesheet fill:#CBC3E3, stroke:#000000;
+    style frontend fill:#FFD580, stroke:#000000;
+    style backend fill:#CBC3E3, stroke:#000000;
 
     googlesheet---stakeholder(["`Rich (*stakeholder*)`"]);
 
