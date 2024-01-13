@@ -13,6 +13,7 @@ from app.models.pydantic import (
 )
 import gspread
 from dotenv import load_dotenv
+import json
 
 load_dotenv()
 
@@ -21,7 +22,14 @@ router = APIRouter()
 log = logging.getLogger("uvicorn")
 
 # Load google sheet based information
-GOOGLE_CREDENTIAL_DICT = ast.literal_eval(os.getenv("GOOGLE_CREDENTIAL_DICT"))
+if os.getenv("CODE_ENVIRONMENT") == "prod":
+    GOOGLE_CREDENTIAL_DICT = ast.literal_eval(os.getenv("GOOGLE_CREDENTIAL_DICT"))
+elif os.getenv("CODE_ENVIRONMENT") == "dev":
+    with open('credentials.json', 'r') as creds:
+        GOOGLE_CREDENTIAL_DICT = json.load(creds)
+else:
+    raise Exception("CODE_ENVIRONMENT not set properly!")
+
 GOOGLE_SPREADSHEET_ID = os.getenv("GOOGLE_SPREADSHEET_ID")
 BASE_URL_PREFIX = os.getenv("BASE_URL_PREFIX")
 
