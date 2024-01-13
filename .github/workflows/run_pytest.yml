@@ -23,6 +23,7 @@ jobs:
     env:
       GOOGLE_SPREADSHEET_ID: ${{ secrets.GOOGLE_SPREADSHEET_ID }}
       GOOGLE_CREDENTIAL_DICT: ${{ secrets.GOOGLE_CREDENTIAL_DICT }}
+      CODE_ENVIRONMENT: ${{ secrets.CODE_ENVIROMENT }}
     
     # Steps to be run in this job
     steps:
