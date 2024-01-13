@@ -30,9 +30,6 @@ Before you begin, make sure you have the following installed:
 1. Create `.env`.
 2. Configure database settings, API keys, and other environment-specific variables.
 
-## Testing
-Run `pytest -W ignore::DeprecationWarning`
-
 ## Running the Server
 
 Run the following command to start the FastAPI development server:
