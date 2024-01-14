@@ -61,6 +61,8 @@ class AdoptionFormPayloadSchema(BaseModel):
     avian_vet_info: str
     residence_type: str
     renter_verification: str
+    daily_routine: str
+    weekend_routine: str
     bird_hours_alone: str
     smokers_in_house: str
     other_pets_in_home: str

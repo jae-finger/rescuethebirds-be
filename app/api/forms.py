@@ -184,6 +184,8 @@ async def submit_adoption_form(
     avian_vet_info = payload.avian_vet_info
     residence_type = payload.residence_type
     renter_verification = payload.renter_verification
+    daily_routine = payload.daily_routine
+    weekend_routine = payload.weekend_routine
     bird_hours_alone = payload.bird_hours_alone
     smokers_in_house = payload.smokers_in_house
     other_pets_in_home = payload.other_pets_in_home
@@ -217,6 +219,8 @@ async def submit_adoption_form(
                 avian_vet_info,
                 residence_type,
                 renter_verification,
+                daily_routine,
+                weekend_routine,
                 bird_hours_alone,
                 smokers_in_house,
                 other_pets_in_home,
