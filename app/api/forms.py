@@ -187,7 +187,6 @@ async def submit_adoption_form(
     bird_hours_alone = payload.bird_hours_alone
     smokers_in_house = payload.smokers_in_house
     other_pets_in_home = payload.other_pets_in_home
-    what_organizations = payload.what_organizations
     what_supp_info = payload.what_supp_info
     lifestyle_changes = payload.lifestyle_changes
     vacation_care = payload.vacation_care
@@ -221,7 +220,6 @@ async def submit_adoption_form(
                 bird_hours_alone,
                 smokers_in_house,
                 other_pets_in_home,
-                what_organizations,
                 what_supp_info,
                 lifestyle_changes,
                 vacation_care,

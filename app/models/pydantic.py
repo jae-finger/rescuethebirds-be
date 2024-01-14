@@ -64,7 +64,6 @@ class AdoptionFormPayloadSchema(BaseModel):
     bird_hours_alone: str
     smokers_in_house: str
     other_pets_in_home: str
-    what_organizations: str
     what_supp_info: str
     lifestyle_changes: str
     vacation_care: str
