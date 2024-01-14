@@ -192,6 +192,8 @@ async def submit_adoption_form(
     lifestyle_changes = payload.lifestyle_changes
     vacation_care = payload.vacation_care
     death_plans = payload.death_plans
+    looking_for_in_bird =  payload.looking_for_in_bird
+    additional_comments =  payload.additional_comments
 
     # add all of these to a new row in the appropriate google sheet
     try:
@@ -224,6 +226,8 @@ async def submit_adoption_form(
                 lifestyle_changes,
                 vacation_care,
                 death_plans,
+                looking_for_in_bird,
+                additional_comments
             ]
         )
 

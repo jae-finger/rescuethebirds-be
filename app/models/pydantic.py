@@ -69,6 +69,8 @@ class AdoptionFormPayloadSchema(BaseModel):
     lifestyle_changes: str
     vacation_care: str
     death_plans: str
+    looking_for_in_bird: str
+    additional_comments: str
 
 
 class AdoptionFormResponseSchema(BaseModel):
