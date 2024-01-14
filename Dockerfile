@@ -1,5 +1,5 @@
 # Use a smaller base image, such as Alpine Linux, to reduce the image size.
-FROM python:3.9-alpine
+FROM python:3.11-alpine
 
 # set working directory
 WORKDIR /usr/src/app

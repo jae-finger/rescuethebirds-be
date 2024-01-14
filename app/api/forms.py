@@ -13,6 +13,7 @@ from app.models.pydantic import (
 )
 import gspread
 from dotenv import load_dotenv
+import json
 
 load_dotenv()
 
@@ -21,7 +22,14 @@ router = APIRouter()
 log = logging.getLogger("uvicorn")
 
 # Load google sheet based information
-GOOGLE_CREDENTIAL_DICT = ast.literal_eval(os.getenv("GOOGLE_CREDENTIAL_DICT"))
+if os.getenv("CODE_ENVIRONMENT") == "prod":
+    GOOGLE_CREDENTIAL_DICT = ast.literal_eval(os.getenv("GOOGLE_CREDENTIAL_DICT"))
+elif os.getenv("CODE_ENVIRONMENT") == "dev":
+    with open('credentials.json', 'r') as creds:
+        GOOGLE_CREDENTIAL_DICT = json.load(creds)
+else:
+    raise Exception("CODE_ENVIRONMENT not set properly!")
+
 GOOGLE_SPREADSHEET_ID = os.getenv("GOOGLE_SPREADSHEET_ID")
 BASE_URL_PREFIX = os.getenv("BASE_URL_PREFIX")
 
@@ -176,14 +184,17 @@ async def submit_adoption_form(
     avian_vet_info = payload.avian_vet_info
     residence_type = payload.residence_type
     renter_verification = payload.renter_verification
+    daily_routine = payload.daily_routine
+    weekend_routine = payload.weekend_routine
     bird_hours_alone = payload.bird_hours_alone
     smokers_in_house = payload.smokers_in_house
     other_pets_in_home = payload.other_pets_in_home
-    what_organizations = payload.what_organizations
     what_supp_info = payload.what_supp_info
     lifestyle_changes = payload.lifestyle_changes
     vacation_care = payload.vacation_care
     death_plans = payload.death_plans
+    looking_for_in_bird =  payload.looking_for_in_bird
+    additional_comments =  payload.additional_comments
 
     # add all of these to a new row in the appropriate google sheet
     try:
@@ -208,14 +219,17 @@ async def submit_adoption_form(
                 avian_vet_info,
                 residence_type,
                 renter_verification,
+                daily_routine,
+                weekend_routine,
                 bird_hours_alone,
                 smokers_in_house,
                 other_pets_in_home,
-                what_organizations,
                 what_supp_info,
                 lifestyle_changes,
                 vacation_care,
                 death_plans,
+                looking_for_in_bird,
+                additional_comments
             ]
         )
 

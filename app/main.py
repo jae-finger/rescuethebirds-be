@@ -12,6 +12,15 @@ load_dotenv()
 log = logging.getLogger("uvicorn")
 
 
+# Define lifespan event handler
+async def app_lifespan(app: FastAPI):
+    # Startup code
+    log.info("Starting up...")
+    yield
+    # Shutdown code
+    log.info("Shutting down...")
+
+
 # Define a custom exception handler for 404 errors
 async def custom_not_found_handler(request: Request, exc: HTTPException):
     return JSONResponse(
@@ -42,18 +51,10 @@ def create_application() -> FastAPI:
     application.include_router(forms.router, prefix="/forms", tags=["forms"])
     application.include_router(ping.router)
 
+    # Register lifespan events
+    application.router.lifespan_context(app_lifespan)
+
     return application
 
 
 app = create_application()
-
-
-# Existing startup and shutdown events
-@app.on_event("startup")
-async def startup_event():
-    log.info("Starting up...")
-
-
-@app.on_event("shutdown")
-async def shutdown_event():
-    log.info("Shutting down...")
