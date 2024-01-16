@@ -13,7 +13,4 @@ code_enviroment = os.getenv("CODE_ENVIRONMENT")
 
 @router.get("/ping", include_in_schema=False)
 async def pong(settings: Settings = Depends(get_settings)):
-    return {
-        "ping": "pong!",
-        "environment": code_enviroment,
-    }
+    return {"ping": "pong!", "environment": code_enviroment, "version": 1.0}
