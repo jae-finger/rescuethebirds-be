@@ -60,7 +60,7 @@ def test_boarding_form_submission():
             "person_zipcode": "60626",
             "boarding_start_date": "2099-01-01",
             "boarding_end_date": "2099-12-31",
-            "bird_list" : "tuxedo, blue, darcy"
+            "bird_list" : ["tuxedo", "blue", "darcy"]
         },
     )
     assert response.status_code == 201

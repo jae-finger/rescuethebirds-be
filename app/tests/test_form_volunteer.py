@@ -63,9 +63,9 @@ def test_volunteer_form_submission():
             "emergency_contact": "Emergency Contact",
             "brief_synopsis_of_birds": "Here's a Brief Synopsis of Birds...",
             "why_interested": "I'm interested in volunteering because...",
-            "interested_bird_care": True,
-            "interested_fundraising": False,
-            "interested_fostering": True
+            "interested_bird_care": "True",
+            "interested_fundraising": "False",
+            "interested_fostering": "True"
             
         },
     )

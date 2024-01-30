@@ -36,6 +36,11 @@ Run the following command to start the FastAPI development server:
 1. `docker build -t rescuethebirds .`
 2. `docker run -d -p 8000:8000 rescuethebirds`
 
+## Pytest
+
+In order to run tests, run the following commands:
+1. `pytest`
+
 ## Basic Backend Flow
 The Rescue the Birds! backend is built around assisting our stakeholder, Rich, at the refuge. He wishes to have a website that dumps everything into a google sheet - like the one he has now. So, here's a simplified view of how a user interacts with the frontend, and how it ends up in front of the refuge.
 ```mermaid
