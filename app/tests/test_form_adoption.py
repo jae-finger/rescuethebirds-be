@@ -25,10 +25,8 @@ GOOGLE_SPREADSHEET_ID = os.getenv("GOOGLE_SPREADSHEET_ID")
 BASE_URL_PREFIX = os.getenv("BASE_URL_PREFIX")
 
 
-# Assuming you have a function to get Google Sheets credentials
 def get_google_credentials():
-    # Load your Google credentials here
-    # This could be from a file, environment variable, etc.
+    # Load Google credentials
     credentials = GOOGLE_CREDENTIAL_DICT
     return credentials
 
@@ -54,7 +52,6 @@ def test_adoption_form_submission():
     response = client.post(
         "/forms/adoption",
         json={
-            # Fill in your form payload here
             "person_name": "Test Person",
             "person_dob": "01/01/1900",
             "person_email": "test_email@emails.com",

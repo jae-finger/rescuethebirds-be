@@ -65,7 +65,6 @@ async def submit_volunteer_form(
     emergency_contact = payload.emergency_contact
     brief_synopsis_of_birds = payload.brief_synopsis_of_birds
     why_interested = payload.why_interested
-
     interested_bird_care = payload.interested_bird_care
     interested_fundraising = payload.interested_fundraising
     interested_fostering = payload.interested_fostering
@@ -89,7 +88,7 @@ async def submit_volunteer_form(
                 why_interested,
                 interested_bird_care,
                 interested_fundraising,
-                interested_fostering,
+                interested_fostering
             ]
         )
 
