@@ -154,6 +154,16 @@ async def submit_boarding_form(
 
     return response_object
 
+@router.get("/emailtest", status_code=200)
+async def send_email_test():
+    """
+    Send a test email to the owner
+    """
+    credentials = get_credentials()
+    service = build('gmail', 'v1', credentials=credentials)
+    message = create_message('jaefinger@gmail.com', 'jaefinger@gmail.com', 'Subject Here', 'Email body text here')
+    send_email(service, 'me', message)
+
 
 @router.post("/adoption", response_model=AdoptionFormResponseSchema, status_code=201)
 async def submit_adoption_form(
@@ -237,8 +247,13 @@ async def submit_adoption_form(
             "message": "Adoption form written to Google Sheet successfully!"
         }
 
+        # # Send notification email to owner
+        # send_form_notification_email("Adoption", current_time)
+
     # except and then return the error
     except Exception as e:
         response_object = {"message": f"Error: {e}"}
 
     return response_object
+
+
