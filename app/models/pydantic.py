@@ -76,9 +76,3 @@ class AdoptionFormPayloadSchema(BaseModel):
 
 class AdoptionFormResponseSchema(BaseModel):
     message: str
-
-
-class EmailRequest(BaseModel):
-    to: str
-    subject: str
-    message_text: str

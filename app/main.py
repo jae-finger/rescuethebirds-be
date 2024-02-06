@@ -5,7 +5,6 @@ from app.api import ping, forms
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 import os
-from app.models.pydantic import EmailRequest
 
 # Load environment variables from .env file
 load_dotenv()
