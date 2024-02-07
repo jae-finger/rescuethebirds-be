@@ -28,7 +28,7 @@ Before you begin, make sure you have the following installed:
 ## Configuration
 
 1. Create `.env`.
-2. Configure database settings, API keys, and other environment-specific variables.
+2. Configure database settings, API keys, and other environment-specific variables. Message Jon for info.
 
 ## Running the Server
 
