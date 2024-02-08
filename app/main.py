@@ -1,7 +1,7 @@
 import logging
 from fastapi import FastAPI, Request, HTTPException
 from fastapi.responses import JSONResponse
-from app.api import ping, forms  # Existing imports
+from app.api import ping, forms
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
 import os
@@ -10,7 +10,6 @@ import os
 load_dotenv()
 
 log = logging.getLogger("uvicorn")
-
 
 # Define lifespan event handler
 async def app_lifespan(app: FastAPI):
